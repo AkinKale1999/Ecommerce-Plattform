@@ -1,13 +1,22 @@
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/assets/styles/globals.css";
+import { APP_DESCRIPTION, APP_NAME, SERVER_URL } from "@/lib/constants";
+import { ThemeProvider } from "next-themes";
+
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Prostore',
-  // der title im tab oben
-  description: 'A modern ecommerce platform built with Next.js'
+  title: {
+    template: `%s | Prostore`,
+    default: APP_NAME
+  },
+
+  // titel im tab, wurde als Variable gespeichert in der -
+  // lib/constants/index.ts was es flexibler/dynamischer macht.
+  description: APP_DESCRIPTION,
+  metadataBase: new URL(SERVER_URL)
 }
 
 export default function RootLayout({
@@ -15,10 +24,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
-    <html lang="en">
-      <body className={`${inter.className}  antialiased`}>
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} antialiased`}>
+
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+
+          {children}
+        </ThemeProvider>
+
       </body>
     </html>
   );
