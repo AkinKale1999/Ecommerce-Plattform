@@ -9,14 +9,13 @@ const Homepage = async () => {
 
   const latestProducts = await getLatestProduct()
 
-  return <>
-    <ProductList 
-    data={latestProducts} 
-    title="Newest Arrivals" 
-    limit={4} 
-
+  return (<>
+    <ProductList
+      data={latestProducts}
+      title="Newest Arrivals"
+      limit={4}
     />
-  </>
+  </>)
 }
 
 export default Homepage;
